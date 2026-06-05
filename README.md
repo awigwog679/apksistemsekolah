@@ -17,6 +17,39 @@ PENAMBAHAN KERKOM 4 Juni 2026
 
 run project on login_user (posible)
 //included dashboardtu, menu_siswa, menu_kelas, menu_jadwal, frm_user, tranksaksi [masih belum selesai pengerjaan form tranksaksi]
+Perubahan Menu Siswa
+
+Fitur yang Ditambahkan
+
+- Menambahkan ikon pada tombol Simpan, Ubah, Hapus, dan Batal.
+- Menambahkan resource gambar baru:
+  - save.png
+  - edit.png
+  - delete.png
+  - reset.png
+- Menambahkan scaling icon agar ukuran tombol lebih proporsional.
+
+Perubahan Tampilan (UI)
+
+- Mengubah warna tombol:
+  - Simpan → Hijau
+  - Ubah → Biru
+  - Hapus → Merah
+  - Batal → Abu-abu
+  - Cari → Biru
+- Menambahkan jarak antara icon dan text pada tombol.
+- Menyesuaikan tampilan form agar lebih konsisten dengan dashboard.
+
+- Menggunakan "getScaledInstance(20, 20, Image.SCALE_SMOOTH)" untuk resize icon.
+- Menggunakan "setIcon()" untuk menerapkan icon pada JButton.
+- Menggunakan "setBackground()" dan "setForeground()" untuk custom warna tombol.
+
+File Resource yang Ditambahkan
+
+- save.png
+- edit.png
+- delete.png
+- reset.png
 
 Update 5 Juni 2026
 1. Tampilan
@@ -32,7 +65,7 @@ Update 5 Juni 2026
   - Menambahkan logika if-else pada query SQL untuk menggabungkan filter ComboBox kelas dengan TextField pencarian.
   - Mengganti baris txtpertemuan.setText("") menjadi jTemu.setValue(1) karena perubahan komponen ke JSpinner.
   - Menambahkan pemanggilan datatable(); agar tabel me-refresh data saat kelas diganti.
-  - Memindahkan pemanggilan datatable(); pakai keyPressed.
+  - Memindahkan pemanggilan datatable(); dari KeyPressed ke KeyReleased agar fitur Live Search berjalan mulus tanpa delay satu huruf.
   - [ADD] Event bsimpanActionPerformed:
      -  Menambahkan validasi angka untuk jTemu (JSpinner).
      -  Menambahkan JOptionPane.showConfirmDialog untuk konfirmasi sebelum menyimpan.
