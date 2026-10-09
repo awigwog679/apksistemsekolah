@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package guru;
+import fileyanggkkepake.menu_tranksaksi;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;

@@ -3,23 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package kesiswaan;
+import pengaturandatabase.menu_nilai;
 import java.awt.Image;
 import java.beans.PropertyVetoException;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import koneksi.koneksi;
+import guru.GuruSession;
+import pengaturandatabase.UserSession;
+import guru.homedashboardguru;
+import guru.loginguru;
+import guru.menu_absenSiswa;
 /**
  *
  * @author User
  */
-public class dashboardguru extends javax.swing.JFrame {
+public class dashboardkesiswaan extends javax.swing.JFrame {
 
     /**
      * Creates new form dashboardguru
      */
-    public dashboardguru() {
+    public dashboardkesiswaan() {
         initComponents();
         String kelas = GuruSession.getKelas();
         System.out.println(kelas);
@@ -357,17 +363,15 @@ public void scaleImage(javax.swing.JComponent komponenTarget, String pathGambar)
 
     private void babsenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_babsenActionPerformed
     desktop.removeAll();
-    
-    panel_absen pa = new panel_absen(desktop);
-    
-    desktop.add(pa);
-    pa.setVisible(true);
-    
+    menu_absenSiswa as = new menu_absenSiswa();
+
+    desktop.add(as);
+    as.setVisible(true);
     try {
-        pa.setMaximum(true);
-    } catch (java.beans.PropertyVetoException e) {
-        System.err.println("Gagal memaksimalkan Internal Frame: " + e.getMessage());
-    }   
+        as.setMaximum(true);
+        } catch (java.beans.PropertyVetoException e) {
+            System.err.println("Gagal memaksimalkan Internal Frame: " + e.getMessage());
+        }   
     }//GEN-LAST:event_babsenActionPerformed
 
     private void desktopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopComponentResized
@@ -423,7 +427,7 @@ for (JInternalFrame frame : desktop.getAllFrames()) {
 
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
-            new dashboardguru().setVisible(true);
+            new dashboardkesiswaan().setVisible(true);
         }
     });
 }

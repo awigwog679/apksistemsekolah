@@ -12,15 +12,15 @@ import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import tampilan.loginguru;
-import tampilan.loginuser;
+import guru.loginguru;
+import pengaturandatabase.loginuser;
 import koneksi.koneksi;
 
 /**
  *
  * @author User
  */
-public class dashboardRunning extends javax.swing.JFrame {
+public class guru_running extends javax.swing.JFrame {
     
     Connection con=koneksi.getConnection();
     PreparedStatement pet;
@@ -29,7 +29,7 @@ public class dashboardRunning extends javax.swing.JFrame {
     /**
      * Creates new form dashboardRunning
      */
-    public dashboardRunning() {
+    public guru_running() {
        
         initComponents(); 
         setExtendedState(JFrame.MAXIMIZED_HORIZ);
@@ -277,7 +277,7 @@ public class dashboardRunning extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginuserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginuserMouseClicked
-        tampilan.loginuser lu = new tampilan.loginuser(); 
+        pengaturandatabase.loginuser lu = new pengaturandatabase.loginuser(); 
     
     loginuser.setVisible(true);
 
@@ -285,7 +285,7 @@ public class dashboardRunning extends javax.swing.JFrame {
     }//GEN-LAST:event_loginuserMouseClicked
 
     private void loginguruMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginguruMouseClicked
-        tampilan.loginguru lg = new tampilan.loginguru(); 
+        guru.loginguru lg = new guru.loginguru(); 
     
     loginuser.setVisible(true);
     this.dispose(); 
@@ -319,13 +319,13 @@ public class dashboardRunning extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dashboardRunning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(guru_running.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dashboardRunning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(guru_running.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dashboardRunning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(guru_running.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dashboardRunning.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(guru_running.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 try {
@@ -335,7 +335,7 @@ try {
 }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new dashboardRunning().setVisible(true);
+                new guru_running().setVisible(true);
             }
         });
     }

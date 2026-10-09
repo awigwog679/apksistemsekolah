@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package pengaturandatabase;
 
+import pengaturandatabase.dashboardtu;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import koneksi.koneksi;
-import running.dashboardRunning;
+import running.database_running;
 
 /**
  *
@@ -296,7 +297,7 @@ public class loginuser extends javax.swing.JFrame {
     }//GEN-LAST:event_passKeyPressed
 
     private void kembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kembaliActionPerformed
-        running.dashboardRunning dr = new running.dashboardRunning();
+        running.database_running dr = new running.database_running();
     kembali.setVisible(true);
     this.dispose(); 
     }//GEN-LAST:event_kembaliActionPerformed

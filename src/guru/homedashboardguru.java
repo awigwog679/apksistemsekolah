@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package guru;
 import java.sql.Connection;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

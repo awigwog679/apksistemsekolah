@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package guru;
 
+import kesiswaan.dashboardkesiswaan;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import koneksi.koneksi;
-import tampilan.GuruSession;
+import guru.GuruSession;
 /**
  *
  * @author ACER
@@ -145,6 +146,11 @@ public class loginguru extends javax.swing.JFrame {
         );
 
         nip.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        nip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nipActionPerformed(evt);
+            }
+        });
         nip.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nipKeyPressed(evt);
@@ -279,7 +285,7 @@ String sql ="SELECT g.nip_g, g.nama, g.kd_guru, g.jkel, k.kelas " +
             JOptionPane.showMessageDialog(null, "Login Berhasil!\nSelamat Datang, "
                     + GuruSession.getSapaan() + (", ") + GuruSession.getNama());
             
-            dashboardguru menu = new dashboardguru(); 
+            dashboardkesiswaan menu = new dashboardkesiswaan(); 
             menu.setVisible(true);
             
             
@@ -299,7 +305,7 @@ String sql ="SELECT g.nip_g, g.nama, g.kd_guru, g.jkel, k.kelas " +
     }//GEN-LAST:event_passKeyPressed
 
     private void kembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kembaliActionPerformed
-        running.dashboardRunning dr = new running.dashboardRunning();
+        running.database_running dr = new running.database_running();
     kembali.setVisible(true);
     this.dispose(); 
     }//GEN-LAST:event_kembaliActionPerformed

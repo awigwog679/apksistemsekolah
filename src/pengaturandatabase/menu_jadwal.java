@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package pengaturandatabase;
 
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -15,7 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
-import static tampilan.frm_jadwal.txkg;
+import guru.pop_guru;
+import static pengaturandatabase.frm_jadwal.txkg;
 
 /**
  *

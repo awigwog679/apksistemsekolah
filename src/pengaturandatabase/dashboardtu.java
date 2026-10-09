@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tampilan;
+package pengaturandatabase;
 
+import pengaturandatabase.menu_jadwal;
+import pengaturandatabase.menu_siswa;
+import pengaturandatabase.menu_kelas;
+import pengaturandatabase.menu_guru;
 import java.awt.Image;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
@@ -17,6 +21,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 import koneksi.koneksi;
+import fileyanggkkepake.menu_absenGuru;
+import fileyanggkkepake.menu_tranksaksi;
 
 /**
  *
@@ -384,7 +390,7 @@ private void setadmin(javax.swing.JButton btn, String path) {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 449, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel1.setBackground(new java.awt.Color(0, 8, 97));
