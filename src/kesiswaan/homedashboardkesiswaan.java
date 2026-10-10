@@ -6,172 +6,31 @@
 package kesiswaan;
 import guru.*;
 import java.sql.Connection;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.data.general.DefaultPieDataset;
 import koneksi.koneksi;
 
 /**
  *
  * @author User
  */
-public class homedashboardguru extends javax.swing.JInternalFrame {
-    private Connection conn = new koneksi().getConnection();
+public class homedashboardkesiswaan extends javax.swing.JInternalFrame {
+    // Beri tanda komentar (//) di bawah ini agar tidak memanggil koneksi
+    // private Connection conn = new koneksi().getConnection();
 
-    /**
-     * Creates new form homedashboardtu
-     */
-    public homedashboardguru() {
+    public homedashboardkesiswaan() {
         initComponents();
-        
-        tkelas.setText(("DIAGRAM KELAS ") + GuruSession.getKelas());
-        
-        // Panggil method ini untuk mengisi 4 kotak ringkasan di atas
+        tkelas.setText("REKAP DATA: SEMUA KELAS"); 
         tampilkanAngkaRingkasan();
-        
-        // Catatan Imhotep: Jika 4 panel di atas diisi angka, diagram pie sebaiknya
-        // dipindah ke panel lain yang lebih besar di area bawah dashboard.
-        // tampilkanDiagramSiswa(); 
-        // tampilkanDiagramAbsensi(); 
     }
     
     
     public void tampilkanAngkaRingkasan() {
-    try {
-        if (this.conn == null || this.conn.isClosed()) {
-            this.conn = new koneksi().getConnection(); 
-        }
-        
-        String kg = GuruSession.getKelas();
-        
-        // 1. Menghitung Total Siswa berdasarkan Kelas
-        if (kg != null && !kg.trim().isEmpty()) {
-            String sqlSiswa = "SELECT COUNT(*) as total FROM tbl_siswa s JOIN tbl_kelas k ON s.kelas = k.id_kelas WHERE k.kelas = ?";
-            java.sql.PreparedStatement ps = conn.prepareStatement(sqlSiswa);
-            ps.setString(1, kg);
-            java.sql.ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()) {
-                int totalSiswa = rs.getInt("total");
-                // Mengubah teks pada label yang kamu buat di tab Design
-                lbl_angkaSiswa.setText(totalSiswa + " Siswa"); 
-            }
-        }
-        
-        // 2. Menghitung Total Pelanggaran (Contoh, sesuaikan dengan nama tabel aslimu)
-        /*
-        String sqlKasus = "SELECT COUNT(*) as total_kasus FROM tbl_pelanggaran WHERE kelas = ?";
-        java.sql.PreparedStatement psKasus = conn.prepareStatement(sqlKasus);
-        psKasus.setString(1, kg);
-        java.sql.ResultSet rsKasus = psKasus.executeQuery();
-        if (rsKasus.next()) {
-             lblAngkaPelanggaran.setText(rsKasus.getInt("total_kasus") + " Kasus");
-        }
-        */
-        
-        // Lakukan hal yang sama (query COUNT) untuk Agenda dan Kasus Aktif...
-
-    } catch (Exception e) {
-        System.err.println("Gagal load data angka ringkasan: " + e.getMessage());
+        // Langsung tembak teksnya secara manual (Data Dummy)
+        lbl_angkaSiswa.setText("1.250 Siswa");
+        lbl_angkaKasus.setText("5 Kasus");
+        lbl_angkaAgenda.setText("3 Pertemuan");
+        lbl_angkaPelanggaran.setText("12 Kasus");
     }
-}
 
-//public void tampilkanDiagramAbsensi() {
-//    DefaultPieDataset dataset = new DefaultPieDataset();
-//
-//    try {
-//        if (this.conn == null || this.conn.isClosed()) {
-//            this.conn = new koneksi().getConnection(); 
-//        }
-//        
-//        String kg = GuruSession.getKelas();
-//        
-//        if (kg != null && !kg.trim().isEmpty()) {
-//            String sql = "SELECT a.status_hadir, COUNT(*) as total " +
-//                         "FROM tbl_absen a " +
-//                         "JOIN tbl_siswa s ON a.nisn = s.nisn " +
-//                         "JOIN tbl_kelas k ON s.kelas = k.id_kelas " +
-//                         "WHERE k.kelas = ? " +
-//                         "GROUP BY a.status_hadir";
-//                         
-//            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
-//            ps.setString(1, kg);
-//            java.sql.ResultSet res = ps.executeQuery();
-//
-//            int totalHadir = 0;
-//            int totalTidakHadir = 0;
-//
-//            while (res.next()) {
-//                int statusAbsen = res.getInt("status_hadir"); 
-//                int total = res.getInt("total");
-//
-//                if (statusAbsen == 1) {
-//                    totalHadir += total;
-//                } else {
-//                    totalTidakHadir += total;
-//                }
-//            }
-//
-//            if (totalHadir == 0 && totalTidakHadir == 0) {
-//                dataset.setValue("Belum ada data absensi", 1); 
-//            } else {
-//                if (totalHadir > 0) dataset.setValue("Hadir (" + totalHadir + ")", totalHadir);
-//                if (totalTidakHadir > 0) dataset.setValue("Tidak Hadir (" + totalTidakHadir + ")", totalTidakHadir);
-//            }
-//
-//            JFreeChart chart = ChartFactory.createPieChart(null, dataset, true, true, false);
-//
-//            chart.setBackgroundPaint(new java.awt.Color(255, 255, 255, 255));
-//            chart.getLegend().setBackgroundPaint(new java.awt.Color(255, 255, 255, 255));
-//            chart.getLegend().setItemPaint(java.awt.Color.BLACK); 
-//
-//            PiePlot plot = (PiePlot) chart.getPlot();
-//            plot.setBackgroundPaint(null);
-//            plot.setOutlineVisible(false);
-//            plot.setShadowPaint(null);
-//
-//            for (Object key : dataset.getKeys()) {
-//                String label = key.toString().toLowerCase();
-//                
-//                if (label.contains("tidak hadir")) {
-//                    plot.setSectionPaint((Comparable) key, new java.awt.Color(231, 76, 60));  
-//                } else if (label.contains("hadir")) {
-//                    plot.setSectionPaint((Comparable) key, new java.awt.Color(46, 204, 113)); 
-//                } else {
-//                    plot.setSectionPaint((Comparable) key, new java.awt.Color(189, 195, 199)); 
-//                }
-//            }
-//
-//            plot.setLabelPaint(java.awt.Color.BLACK);
-//            plot.setLabelFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-//            plot.setLabelBackgroundPaint(new java.awt.Color(0, 0, 0, 0));
-//            plot.setLabelOutlinePaint(null);
-//
-//            ChartPanel chartPanel = new ChartPanel(chart);
-//            chartPanel.setPreferredSize(new java.awt.Dimension(pnlAbsen.getWidth(), pnlAbsen.getHeight()));
-//            chartPanel.setOpaque(false);
-//            
-//            pnlAbsen.removeAll();
-//            pnlAbsen.setLayout(new java.awt.BorderLayout());
-//            pnlAbsen.add(chartPanel, java.awt.BorderLayout.CENTER);
-//            pnlAbsen.validate();
-//            
-//        }
-//
-//    } catch (Exception e) {
-//        System.err.println("Gagal load diagram absensi: " + e.getMessage());
-//        e.printStackTrace();
-//    }
-//}
-
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

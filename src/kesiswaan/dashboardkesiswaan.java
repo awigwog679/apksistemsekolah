@@ -11,8 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import koneksi.koneksi;
-import guru.GuruSession;
-import pengaturandatabase.UserSession;
 import guru.homedashboardguru;
 import guru.loginguru;
 import guru.menu_absenSiswa;
@@ -27,11 +25,13 @@ public class dashboardkesiswaan extends javax.swing.JFrame {
      */
     public dashboardkesiswaan() {
         initComponents();
-        String kelas = GuruSession.getKelas();
-        System.out.println(kelas);
+        // Session dihilangkan sementara
         tampilkanHomeAwal();
         this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        lab_login.setText(("SELAMAT DATANG ")+GuruSession.getSapaan()+ (", ") + GuruSession.getNama());
+        
+        // Teks diketik manual (hardcode)
+        lab_login.setText("SELAMAT DATANG, GURU BK"); 
+        
         setFixedIcon(babsen,"/resource/absen.png");
         sethome(home,"/resource/home.png");
         setFixedIcon(bnilai,"/resource/nilai.png");
@@ -42,7 +42,7 @@ public class dashboardkesiswaan extends javax.swing.JFrame {
     try {
         desktop.removeAll();
         
-        homedashboardguru h = new homedashboardguru();
+        homedashboardkesiswaan h = new homedashboardkesiswaan();
         
         h.setBorder(null);
         ((javax.swing.plaf.basic.BasicInternalFrameUI)h.getUI()).setNorthPane(null);
@@ -52,8 +52,7 @@ public class dashboardkesiswaan extends javax.swing.JFrame {
         h.setSize(desktop.getWidth(), desktop.getHeight());
         h.setVisible(true);
         
-        h.tampilkanDiagramSiswa();
-        h.tampilkanDiagramAbsensi();
+        h.tampilkanAngkaRingkasan();
         
         desktop.repaint();
         desktop.revalidate();
@@ -385,16 +384,15 @@ for (JInternalFrame frame : desktop.getAllFrames()) {
     }//GEN-LAST:event_desktopComponentResized
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-
-    int pilih = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+                                      
+        int pilih = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin keluar?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        
+        if (pilih == JOptionPane.YES_OPTION) {
+            // Karena tidak ada session, langsung tutup aplikasi
+            this.dispose(); 
+            System.exit(0); 
+        }
     
-    if (pilih == JOptionPane.YES_OPTION) {
-        UserSession.setNama(null);
-        
-        this.dispose(); 
-        
-        new loginguru().setVisible(true);
-    }
     }//GEN-LAST:event_logoutActionPerformed
 
     private void logoComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_logoComponentResized
@@ -420,7 +418,6 @@ for (JInternalFrame frame : desktop.getAllFrames()) {
 
   public static void main(String args[]) {
     try {
-        com.formdev.flatlaf.FlatLightLaf.setup();
     } catch (Exception ex) {
         System.err.println("Gagal memuat tema FlatLaf");
     }
