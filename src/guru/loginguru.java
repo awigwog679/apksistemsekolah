@@ -146,6 +146,11 @@ public class loginguru extends javax.swing.JFrame {
         );
 
         nip.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        nip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nipActionPerformed(evt);
+            }
+        });
         nip.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nipKeyPressed(evt);
@@ -304,6 +309,10 @@ String sql ="SELECT g.nip_g, g.nama, g.kd_guru, g.jkel, k.kelas " +
     kembali.setVisible(true);
     this.dispose(); 
     }//GEN-LAST:event_kembaliActionPerformed
+
+    private void nipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nipActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nipActionPerformed
 
     /**
      * @param args the command line arguments

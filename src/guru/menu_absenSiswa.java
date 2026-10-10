@@ -444,8 +444,9 @@ ResultSet rs;
     java.sql.Date sqlDate = new java.sql.Date(tglTemu.getDate().getTime());
 
     try {
-        String sql = "INSERT INTO tbl_absen (nisn, tanggal, pertemuan_ke, status_hadir)" + "VALUES (?, ?, ?, ?)" + "ON DUPLICATE KEY UPDATE status_hadir = VALUES(status_hadir)";
-        PreparedStatement pst = con.prepareStatement(sql);
+       String sql = "INSERT INTO tbl_absen (nisn, tgl_absen, pertemuan_ke, status_hadir)"
+           + "VALUES (?, ?, ?, ?)"
+           + "ON DUPLICATE KEY UPDATE status_hadir = VALUES(status_hadir)";        PreparedStatement pst = con.prepareStatement(sql);
         for (int i = 0; i < jumlahBaris; i++) {
             String nisn = model.getValueAt(i, 0).toString();
             
