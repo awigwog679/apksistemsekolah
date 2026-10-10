@@ -285,7 +285,7 @@ String sql ="SELECT g.nip_g, g.nama, g.kd_guru, g.jkel, k.kelas " +
             JOptionPane.showMessageDialog(null, "Login Berhasil!\nSelamat Datang, "
                     + GuruSession.getSapaan() + (", ") + GuruSession.getNama());
             
-            dashboardkesiswaan menu = new dashboardkesiswaan(); 
+            dashboardguru menu = new dashboardguru(); 
             menu.setVisible(true);
             
             
