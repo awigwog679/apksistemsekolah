@@ -146,11 +146,6 @@ public class loginguru extends javax.swing.JFrame {
         );
 
         nip.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        nip.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nipActionPerformed(evt);
-            }
-        });
         nip.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nipKeyPressed(evt);
