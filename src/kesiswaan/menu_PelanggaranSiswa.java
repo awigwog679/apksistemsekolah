@@ -448,8 +448,6 @@ ResultSet rs;
         pst.setDate(2, sqlDate);
         pst.setString(3, kategori);
         pst.setString(4, keterangan);
-        pst.setString(5, "");        // tempat — bisa ditambahkan field nanti
-        pst.setString(6, "");        // petugas — bisa ditambahkan field nanti
         
         pst.executeUpdate();
         
