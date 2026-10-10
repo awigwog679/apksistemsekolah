@@ -74,7 +74,7 @@ ResultSet rs;
     
     try {
         String sql = "SELECT p.id_pelanggaran, p.nisn, s.nama, p.tgl_pelanggaran, " +
-                     "k.nama_kategori, k.poin, p.keterangan" +
+                     "k.nama_kategori, k.poin, p.keterangan " +
                      "FROM tbl_pelanggaran p " +
                      "JOIN tbl_siswa s ON p.nisn = s.nisn " +
                      "JOIN tbl_kategori_pelanggaran k ON p.id_kategori = k.id_kategori " +
@@ -440,8 +440,8 @@ ResultSet rs;
 
     try {
         String sql = "INSERT INTO tbl_pelanggaran "
-                   + "(nisn, tgl_pelanggaran, id_kategori, keterangan, tempat, petugas) "
-                   + "VALUES (?, ?, (SELECT id_kategori FROM tbl_kategori_pelanggaran WHERE nama_kategori = ?), ?, ?, ?)";
+                   + "(nisn, tgl_pelanggaran, id_kategori, keterangan) "
+                   + "VALUES (?, ?, (SELECT id_kategori FROM tbl_kategori_pelanggaran WHERE nama_kategori = ?), ?)";
         
         PreparedStatement pst = con.prepareStatement(sql);
         pst.setString(1, nisn);
