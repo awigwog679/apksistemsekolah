@@ -361,8 +361,6 @@ CREATE TABLE `tbl_pelanggaran` (
   `tgl_pelanggaran` date NOT NULL,
   `id_kategori` int(11) NOT NULL,
   `keterangan` text NOT NULL,
-  `tempat` varchar(100) DEFAULT NULL,
-  `petugas` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
