@@ -11,9 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import koneksi.koneksi;
-import guru.homedashboardguru;
-import guru.loginguru;
-import guru.menu_absenSiswa;
+import kesiswaan.menu_PelanggaranSiswa;
 /**
  *
  * @author User
@@ -362,7 +360,7 @@ public void scaleImage(javax.swing.JComponent komponenTarget, String pathGambar)
 
     private void babsenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_babsenActionPerformed
     desktop.removeAll();
-    menu_absenSiswa as = new menu_absenSiswa();
+    menu_PelanggaranSiswa as = new menu_PelanggaranSiswa();
 
     desktop.add(as);
     as.setVisible(true);
