@@ -66,7 +66,7 @@ ResultSet rs;
     }
     
     protected void datatable(){
-    String[] baris = {"ID", "NISN", "Nama Siswa", "Tanggal", "Kategori", "Poin", "Keterangan", "Petugas"};
+    String[] baris = {"ID", "NISN", "Nama Siswa", "Tanggal", "Kategori", "Poin", "Keterangan"};
     tabmode = new DefaultTableModel(null, baris);
     tblpelanggaran.setModel(tabmode);
 
@@ -74,7 +74,7 @@ ResultSet rs;
     
     try {
         String sql = "SELECT p.id_pelanggaran, p.nisn, s.nama, p.tgl_pelanggaran, " +
-                     "k.nama_kategori, k.poin, p.keterangan, p.petugas " +
+                     "k.nama_kategori, k.poin, p.keterangan" +
                      "FROM tbl_pelanggaran p " +
                      "JOIN tbl_siswa s ON p.nisn = s.nisn " +
                      "JOIN tbl_kategori_pelanggaran k ON p.id_kategori = k.id_kategori " +
@@ -96,7 +96,6 @@ ResultSet rs;
                 hasil.getString("nama_kategori"),
                 hasil.getInt("poin"),
                 hasil.getString("keterangan"),
-                hasil.getString("petugas")
             });
         }
 
