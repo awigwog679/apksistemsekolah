@@ -37,57 +37,108 @@ ResultSet rs;
     }
 public void datatable() {
     DefaultTableModel tabmode = new DefaultTableModel();
+
     tabmode.addColumn("NISN");
     tabmode.addColumn("Nama Siswa");
     tabmode.addColumn("Tugas");
     tabmode.addColumn("UTS");
     tabmode.addColumn("UAS");
+    tabmode.addColumn("Nilai Akhir");
+    tabmode.addColumn("Predikat");
+
     tblsiswa.setModel(tabmode);
-    
+
     if (cbkelas.getSelectedIndex() <= 0) {
         return;
     }
 
     String kelasDipilih = cbkelas.getSelectedItem().toString();
-    String idGuru = GuruSession.getKdGuru();
     String idMapel = "";
+
     if (cbmapel.getSelectedIndex() > 0) {
-        idMapel = cariIdMapel(cbmapel.getSelectedItem().toString());
+        idMapel = cariIdMapel(
+            cbmapel.getSelectedItem().toString()
+        );
+    } else {
+        return;
     }
 
-    try {
-        String sql = "SELECT s.nisn, s.nama, " +
-                     "MAX(CASE WHEN n.jenis_nilai = 'Tugas' THEN n.skor ELSE 0 END) AS Tugas, " +
-                     "MAX(CASE WHEN n.jenis_nilai = 'UTS' THEN n.skor ELSE 0 END) AS UTS, " +
-                     "MAX(CASE WHEN n.jenis_nilai = 'UAS' THEN n.skor ELSE 0 END) AS UAS " +
-                     "FROM tbl_siswa s " +
-                     "JOIN tbl_kelas k ON s.kelas = k.id_kelas " +
-                     "LEFT JOIN tbl_nilai n ON s.nisn = n.nisn AND n.id_mapel = ? " +
-                     "WHERE k.kelas = ? " +
-                     "GROUP BY s.nisn, s.nama " +
-                     "ORDER BY s.nama ASC";
+    String sql =
+        "SELECT s.nisn, s.nama, " +
+        "MAX(CASE WHEN n.jenis_nilai = 'Tugas' " +
+        "THEN n.skor ELSE 0 END) AS Tugas, " +
 
+        "MAX(CASE WHEN n.jenis_nilai = 'UTS' " +
+        "THEN n.skor ELSE 0 END) AS UTS, " +
+
+        "MAX(CASE WHEN n.jenis_nilai = 'UAS' " +
+        "THEN n.skor ELSE 0 END) AS UAS " +
+
+        "FROM tbl_siswa s " +
+        "JOIN tbl_kelas k ON s.kelas = k.id_kelas " +
+
+        "LEFT JOIN tbl_nilai n " +
+        "ON s.nisn = n.nisn AND n.id_mapel = ? " +
+
+        "WHERE k.kelas = ? " +
+        "GROUP BY s.nisn, s.nama " +
+        "ORDER BY s.nama ASC";
+
+    try {
         PreparedStatement pst = con.prepareStatement(sql);
-        pst.setString(1, idMapel); 
+
+        pst.setString(1, idMapel);
         pst.setString(2, kelasDipilih);
-        
+
         ResultSet rs = pst.executeQuery();
 
-        int count = 0;
         while (rs.next()) {
+            int tugas = rs.getInt("Tugas");
+            int uts = rs.getInt("UTS");
+            int uas = rs.getInt("UAS");
+
+            // Rata-rata sederhana dari Tugas, UTS, dan UAS
+            double nilaiAkhir = (tugas + uts + uas) / 3.0;
+
+          String predikat;
+
+        if (nilaiAkhir >= 90) {
+    predikat = "A";
+        } else if (nilaiAkhir >= 80) {
+    predikat = "A-";
+} else if (nilaiAkhir >= 70) {
+    predikat = "B";
+} else if (nilaiAkhir >= 60) {
+    predikat = "C";
+} else if (nilaiAkhir >= 50) {
+    predikat = "D";
+} else {
+    predikat = "E";
+}
+
             tabmode.addRow(new Object[]{
                 rs.getString("nisn"),
                 rs.getString("nama"),
-                rs.getInt("Tugas"),
-                rs.getInt("UTS"),
-                rs.getInt("UAS")
+                tugas,
+                uts,
+                uas,
+                String.format(
+                    java.util.Locale.US,
+                    "%.2f",
+                    nilaiAkhir
+                ),
+                predikat
             });
-            count++;
         }
-        System.out.println("DEBUG: Ditemukan " + count + " data.");
+
+        rs.close();
+        pst.close();
 
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Gagal memuat tabel: " + e.getMessage());
+        JOptionPane.showMessageDialog(
+            this,
+            "Gagal memuat tabel: " + e.getMessage()
+        );
         e.printStackTrace();
     }
 }
@@ -310,13 +361,13 @@ private String cariIdMapel(String namaMapel) {
 
         tblsiswa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "NISN", "Nama Siswa", "Tugas", "UTS", "UAS", "Nilai Akhir", "Predikat"
             }
         ));
         tblsiswa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -358,28 +409,25 @@ private String cariIdMapel(String namaMapel) {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txcari)
+                        .addGap(118, 118, 118))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbkelas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txcari)
-                                .addGap(118, 118, 118))
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(84, 84, 84)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbkelas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(84, 84, 84)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(17, 17, 17))
-                                    .addComponent(cbmapel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(130, 130, 130)))
-                .addContainerGap())
+                                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(17, 17, 17))
+                            .addComponent(cbmapel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(142, 142, 142))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
