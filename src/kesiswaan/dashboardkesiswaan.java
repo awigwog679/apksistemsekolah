@@ -224,7 +224,7 @@ public void scaleImage(javax.swing.JComponent komponenTarget, String pathGambar)
 
         jPanel1.setBackground(new java.awt.Color(0, 8, 97));
 
-        babsen.setText("absen");
+        babsen.setText("Pelanggaran");
         babsen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 babsenActionPerformed(evt);
