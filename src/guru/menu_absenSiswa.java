@@ -236,7 +236,7 @@ ResultSet rs;
             tblsiswa.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detail Pertemuan", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(1, 1, 1))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detail Pertemuan", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(1, 1, 1))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(1, 1, 1));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
@@ -444,9 +444,9 @@ ResultSet rs;
     java.sql.Date sqlDate = new java.sql.Date(tglTemu.getDate().getTime());
 
     try {
-       String sql = "INSERT INTO tbl_absen (nisn, tgl_absen, pertemuan_ke, status_hadir)"
-           + "VALUES (?, ?, ?, ?)"
-           + "ON DUPLICATE KEY UPDATE status_hadir = VALUES(status_hadir)";        PreparedStatement pst = con.prepareStatement(sql);
+      String sql = "INSERT INTO tbl_absen (nisn, tanggal, pertemuan_ke, status_hadir) "
+    + "VALUES (?, ?, ?, ?) "
+    + "ON DUPLICATE KEY UPDATE status_hadir = VALUES(status_hadir)";        PreparedStatement pst = con.prepareStatement(sql);
         for (int i = 0; i < jumlahBaris; i++) {
             String nisn = model.getValueAt(i, 0).toString();
             
