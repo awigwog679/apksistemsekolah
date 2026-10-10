@@ -66,7 +66,7 @@ ResultSet rs;
     }
     
     protected void datatable(){
-     String[] baris = {"ID", "NISN", "Nama Siswa", "Tanggal", "Kategori", "Poin", "Keterangan", "Petugas"};
+    String[] baris = {"ID", "NISN", "Nama Siswa", "Tanggal", "Kategori", "Poin", "Keterangan", "Petugas"};
     tabmode = new DefaultTableModel(null, baris);
     tblpelanggaran.setModel(tabmode);
 
@@ -189,7 +189,6 @@ ResultSet rs;
         jLabel14.setText("KATEGORI       :");
 
         cbkategori.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbkategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Terlambat", "Merokok", "Tawuran" }));
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel15.setText("KETERANGAN :");
@@ -389,8 +388,6 @@ ResultSet rs;
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        jPanel1.getAccessibleContext().setAccessibleName("Panel Input");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -489,7 +486,34 @@ ResultSet rs;
     }//GEN-LAST:event_txtcarisiswaKeyPressed
 
     private void bcarisiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcarisiswaActionPerformed
-        // TODO add your handling code here:
+         String nisn = txtnisn.getText().trim();
+    
+    if (nisn.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Masukkan NISN terlebih dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    
+    try {
+        String sql = "SELECT s.nama, k.kelas FROM tbl_siswa s " +
+                     "LEFT JOIN tbl_kelas k ON s.kelas = k.id_kelas " +
+                     "WHERE s.nisn = ?";
+        
+        PreparedStatement pst = con.prepareStatement(sql);
+        pst.setString(1, nisn);
+        ResultSet rs = pst.executeQuery();
+        
+        if (rs.next()) {
+            txtnama.setText(rs.getString("nama"));
+            txtkelas.setText(rs.getString("kelas"));
+        } else {
+            JOptionPane.showMessageDialog(this, "Siswa dengan NISN " + nisn + " tidak ditemukan", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            txtnama.setText("");
+            txtkelas.setText("");
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Gagal mencari siswa: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }        // TODO add your handling code here:
     }//GEN-LAST:event_bcarisiswaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
